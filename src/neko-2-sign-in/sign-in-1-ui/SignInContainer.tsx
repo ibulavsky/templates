@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import SignIn from "./SignIn";
-import {connect} from "react-redux";
+import {connect, useDispatch, useSelector} from "react-redux";
 import {IAppStore} from "../../neko-1-main/main-2-bll/store";
 import {loginThunk} from "../sign-in-2-bll/signInThunks";
 import {Redirect} from 'react-router-dom';
@@ -9,58 +9,56 @@ import Preloader from "../../neko-0-common/common-1-ui/Preloader";
 import {loginValidate} from "../../neko-0-common/validators/validator";
 
 interface SignInContainerIProps {
-    isAuth: boolean
-    isFetching: boolean
-    errorMessage: string | undefined
-    loginThunk: (email: string, password: string, isRememberMe: boolean) => void
+
 }
 
-const SignInContainer: React.FC<SignInContainerIProps> = (props) => {
-    const [email, changeEmail] = useState('');
-    const [password, changePassword] = useState('');
-    const [isRememberMe, changeRememberMe] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
-    // logic
-    const onEmailChange = (login: string) => {
-        changeEmail(login)
-    };
-    const onPasswordChange = (password: string) => {
-        changePassword(password)
-    };
-    const onRememberChange = (isRememberMe: boolean) => {
-        changeRememberMe(isRememberMe)
-    };
-    const onSubmitLogin = () => {
-        const errorText =loginValidate(email, password);
-        if (errorText) {
-            setErrorMessage(errorText)
-        } else {
-            setErrorMessage('');
-            props.loginThunk(email, password, isRememberMe)
-        }
-    };
+const SignInContainer: React.FC<SignInContainerIProps> = () => {
+        const [email, changeEmail] = useState('');
+        const [password, changePassword] = useState('');
+        const [isRememberMe, changeRememberMe] = useState(false);
+        const [onErrorMessage, setErrorMessage] = useState('');
 
-    return (
-        <>
-            {props.isFetching
-                ? <Preloader/>
-                : props.isAuth
-                    ? <Redirect to={NEKO_PATH}/>
-                    : <SignIn rememberMe={isRememberMe} email={email} password={password}
-                              errorMessage={props.errorMessage + errorMessage}
-                              onEmailChanged={onEmailChange} onPasswordChanged={onPasswordChange}
-                              onSubmit={onSubmitLogin}
-                              onRememberChange={onRememberChange}/>
+        //use dispatch
+        const dispatch = useDispatch();
 
+        // use selectors
+        const {isAuth, isFetching, errorMessage} = useSelector((store: IAppStore) => (store.signIn));
+
+        // logic
+        const onEmailChange = (login: string) => {
+            changeEmail(login)
+        };
+        const onPasswordChange = (password: string) => {
+            changePassword(password)
+        };
+        const onRememberChange = (isRememberMe: boolean) => {
+            changeRememberMe(isRememberMe)
+        };
+        const onSubmitLogin = () => {
+            const errorText = loginValidate(email, password);
+            if (errorText) {
+                setErrorMessage(errorText)
+            } else {
+                setErrorMessage('');
+                dispatch(loginThunk(email, password, isRememberMe))
             }
-        </>
-    );
-};
+        };
 
-const mapStateToProps = (store: IAppStore) => ({
-    isAuth: store.signIn.isAuth,
-    isFetching: store.signIn.isFetching,
-    errorMessage: store.signIn.errorMessage,
-});
+        return (
+            <>
+                {isFetching
+                    ? <Preloader/>
+                    : isAuth
+                        ? <Redirect to={NEKO_PATH}/>
+                        : <SignIn rememberMe={isRememberMe} email={email} password={password}
+                                  errorMessage={errorMessage + onErrorMessage}
+                                  onEmailChanged={onEmailChange} onPasswordChanged={onPasswordChange}
+                                  onSubmit={onSubmitLogin}
+                                  onRememberChange={onRememberChange}/>
+                }
+            </>
+        );
+    }
+;
 
-export default connect(mapStateToProps, {loginThunk})(SignInContainer);
+export default SignInContainer;

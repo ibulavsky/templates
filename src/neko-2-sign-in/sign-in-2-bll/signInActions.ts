@@ -1,6 +1,6 @@
 export const LOGIN_SUCCESS = "REGISTER-LOGIN-RESPONSE/SING-IN/LOGIN-SUCCESS";
 export const LOGIN_ERROR = "REGISTER-LOGIN-RESPONSE/SING-IN/LOGIN_ERROR";
-export const TOGGLE_IS_FETCHING = "REGISTER-LOGIN-RESPONSE/SING-IN/TOGGLE_IS_FETCHING";
+export const LOGIN_IS_LOADING = "REGISTER-LOGIN-RESPONSE/SING-IN/LOGIN_IS_LOADING";
 
 interface IObjResponse {
     name: string
@@ -19,7 +19,7 @@ interface ILoginErrorAction {
 }
 
 interface IToggleIsFetchingAction {
-    type: typeof TOGGLE_IS_FETCHING;
+    type: typeof LOGIN_IS_LOADING;
     isFetching: boolean
 }
 
@@ -38,6 +38,6 @@ export const loginError = (error: string) => {
 };
 export const toogleIsFetching = (isFetching: boolean) => {
     return {
-        type: TOGGLE_IS_FETCHING, isFetching
+        type: LOGIN_IS_LOADING, isFetching
     }
 };

@@ -1,5 +1,5 @@
 import {signInInitialState} from "./signInInitialState";
-import {ISignInActions, LOGIN_ERROR, LOGIN_SUCCESS, TOGGLE_IS_FETCHING} from "./signInActions";
+import {ISignInActions, LOGIN_ERROR, LOGIN_SUCCESS, LOGIN_IS_LOADING} from "./signInActions";
 
 export const signInReducer = (state = signInInitialState, action: ISignInActions) => {
     switch (action.type) {
@@ -16,7 +16,7 @@ export const signInReducer = (state = signInInitialState, action: ISignInActions
                 isAuth: false,
                 errorMessage: action.error
             };
-        case TOGGLE_IS_FETCHING: {
+        case LOGIN_IS_LOADING: {
             return {
                 ...state,
                 isFetching: action.isFetching
