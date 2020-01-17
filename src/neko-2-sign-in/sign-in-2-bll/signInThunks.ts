@@ -26,7 +26,7 @@ export const loginThunk = (email: string, password: string, rememberMe: boolean)
             }
         } catch (e) {
             dispatch(toogleIsFetching(false));
-            dispatch(loginError(e.message))
+            dispatch(loginError(e.response.data.error))
         }
     };
 

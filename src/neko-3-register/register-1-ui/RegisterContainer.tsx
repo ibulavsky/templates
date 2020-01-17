@@ -5,8 +5,8 @@ import {connect} from 'react-redux';
 import {register} from "../register-2-bll/registerThunks";
 import {IAppStore} from "../../neko-1-main/main-2-bll/store";
 import {SIGN_IN_PATH} from '../../neko-1-main/main-1-ui/Routes';
-import Preloader from "../../neko-0-common/common-1-ui/Preloader";
-import {registerValidate} from "../../neko-0-common/validators/validator";
+import Preloader from "../../neko-5-helpers/Preloader/Preloader";
+import {registerValidate} from "../../neko-5-helpers/validators/validator";
 import {registerError} from "../register-2-bll/registerActions";
 
 interface IPropsRegister {

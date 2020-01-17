@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Forgot from './Forgot';
 import {IAppStore} from "../../neko-1-main/main-2-bll/store";
 import {connect} from "react-redux";
-import {emailValidate} from "../../neko-0-common/validators/validator";
+import {emailValidate} from "../../neko-5-helpers/validators/validator";
 import {forgotMailError} from "../forgot-2-bll/forgotActions";
 import {forgot} from "../forgot-2-bll/forgotThunks";
 

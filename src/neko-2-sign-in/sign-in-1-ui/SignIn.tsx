@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './sign-in-1-ui-styles/SignIn.module.css'
-import Preloader from "../../neko-0-common/common-1-ui/Preloader";
+import Preloader from "../../neko-5-helpers/Preloader/Preloader";
 
 interface SignInProps {
     email: string
