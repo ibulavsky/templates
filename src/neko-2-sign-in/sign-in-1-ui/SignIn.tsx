@@ -1,11 +1,13 @@
 import React from 'react';
 import styles from './sign-in-1-ui-styles/SignIn.module.css'
+import Preloader from "../../neko-0-common/common-1-ui/Preloader";
 
 interface SignInProps {
     email: string
     password: string
     rememberMe: boolean
     errorMessage: string | undefined
+    isFetching: boolean
     onEmailChanged: (login: string) => void
     onPasswordChanged: (password: string) => void
     onRememberChange: (rememberMe: boolean) => void
@@ -13,7 +15,7 @@ interface SignInProps {
 }
 
 const SignIn: React.FC<SignInProps> = ({
-                                           email, password, errorMessage, rememberMe, //variables
+                                           email, password, errorMessage, rememberMe, isFetching, //variables
                                            onEmailChanged, onPasswordChanged, onRememberChange, onSubmit // callbacks
                                        }) => {
     return (
@@ -32,14 +34,17 @@ const SignIn: React.FC<SignInProps> = ({
                            value={password}
                            onChange={e => onPasswordChanged(e.currentTarget.value)}/>
                 </div>
+                {isFetching
+                    ? <Preloader/>
+                    : null}
                 <div className={styles.form}>
                     <input type={"checkbox"} placeholder={'rememberMe'}
                            checked={rememberMe}
                            onChange={e => onRememberChange(e.currentTarget.checked)}/>
                     <span>Запомнить </span>
-                    {errorMessage && <mark>{errorMessage}</mark>}
-                    <button className={styles.button} onClick={onSubmit}>Войти</button>
+                    <button className={styles.button} disabled={isFetching} onClick={onSubmit}>Войти</button>
                 </div>
+                {errorMessage && <mark>{errorMessage}</mark>}
             </div>
         </div>
     );

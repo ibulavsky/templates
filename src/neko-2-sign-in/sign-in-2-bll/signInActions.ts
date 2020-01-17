@@ -25,18 +25,18 @@ interface IToggleIsFetchingAction {
 
 export type ISignInActions = ILoginSuccessAction | ILoginErrorAction | IToggleIsFetchingAction ;
 
-export const loginSuccess = (obj: IObjResponse) => {
+export const loginSuccess = (obj: IObjResponse): ILoginSuccessAction => {
     return {
         type: LOGIN_SUCCESS, obj
     }
 };
 
-export const loginError = (error: string) => {
+export const loginError = (error: string): ILoginErrorAction => {
     return {
         type: LOGIN_ERROR, error
     }
 };
-export const toogleIsFetching = (isFetching: boolean) => {
+export const toogleIsFetching = (isFetching: boolean): IToggleIsFetchingAction => {
     return {
         type: LOGIN_IS_LOADING, isFetching
     }

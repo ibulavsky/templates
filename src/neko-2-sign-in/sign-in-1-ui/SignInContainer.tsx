@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import SignIn from "./SignIn";
-import {connect, useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {IAppStore} from "../../neko-1-main/main-2-bll/store";
 import {loginThunk} from "../sign-in-2-bll/signInThunks";
 import {Redirect} from 'react-router-dom';
@@ -46,19 +46,17 @@ const SignInContainer: React.FC<SignInContainerIProps> = () => {
 
         return (
             <>
-                {isFetching
-                    ? <Preloader/>
-                    : isAuth
+                {isAuth
                         ? <Redirect to={NEKO_PATH}/>
                         : <SignIn rememberMe={isRememberMe} email={email} password={password}
                                   errorMessage={errorMessage + onErrorMessage}
                                   onEmailChanged={onEmailChange} onPasswordChanged={onPasswordChange}
                                   onSubmit={onSubmitLogin}
+                                  isFetching={isFetching}
                                   onRememberChange={onRememberChange}/>
                 }
             </>
         );
-    }
-;
+    };
 
 export default SignInContainer;
