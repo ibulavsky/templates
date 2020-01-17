@@ -15,14 +15,20 @@ export const signIn = (): ThunkAction<Return, IAppStore, ExtraArgument, ISignInA
 
 export const loginThunk = (email: string, password: string, rememberMe: boolean): ThunkAction<Return, IAppStore, ExtraArgument, ISignInActions> =>
     async (dispatch: ThunkDispatch<IAppStore, ExtraArgument, ISignInActions | INekoActions>, getStore: IGetStore) => {
-        dispatch(toogleIsFetching(true));
-        const response = await SignInAPI.login(email, password, rememberMe);
-        dispatch(toogleIsFetching(false));
-        if (response.data.error) {
-            dispatch(loginError(response.data.error))
-        } else {
-            dispatch(loginSuccess(response.data));
-            await localStorageAPI.saveToken(response.data.token)
+        debugger
+        try {
+            dispatch(toogleIsFetching(true));
+            const response = await SignInAPI.login(email, password, rememberMe);
+            dispatch(toogleIsFetching(false));
+            if (response.data.error) {
+                dispatch(loginError(response.data.error))
+            } else {
+                dispatch(loginSuccess(response.data));
+                await localStorageAPI.saveToken(response.data.token)
+            }
+        } catch (e) {
+            dispatch(toogleIsFetching(false))
+            dispatch(loginError(e.message))
         }
     };
 
