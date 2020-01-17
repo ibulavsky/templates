@@ -16,8 +16,8 @@ interface SignInContainerIProps {
 }
 
 const SignInContainer: React.FC<SignInContainerIProps> = (props) => {
-    const [email, changeEmail] = useState('email');
-    const [password, changePassword] = useState('test password');
+    const [email, changeEmail] = useState('');
+    const [password, changePassword] = useState('');
     const [isRememberMe, changeRememberMe] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     // logic

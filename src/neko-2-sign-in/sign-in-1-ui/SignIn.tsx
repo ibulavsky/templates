@@ -33,13 +33,13 @@ const SignIn: React.FC<SignInProps> = ({
                            onChange={e => onPasswordChanged(e.currentTarget.value)}/>
                 </div>
                 <div className={styles.form}>
-                    <span>Запомнить: </span>
                     <input type={"checkbox"} placeholder={'rememberMe'}
                            checked={rememberMe}
                            onChange={e => onRememberChange(e.currentTarget.checked)}/>
+                    <span>Запомнить </span>
+                    {errorMessage && <mark>{errorMessage}</mark>}
+                    <button className={styles.button} onClick={onSubmit}>Войти</button>
                 </div>
-                {errorMessage && <mark>{errorMessage}</mark>}
-                <button className={styles.button} onClick={onSubmit}>Войти</button>
             </div>
         </div>
     );
