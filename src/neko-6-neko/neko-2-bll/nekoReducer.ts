@@ -1,7 +1,7 @@
 import {nekoInitialState} from "./nekoInitialState";
-import {INekoActions} from "./nekoActions";
+import {IProfileActions} from "./nekoActions";
 
-export const nekoReducer = (state = nekoInitialState, action: INekoActions) => {
+export const nekoReducer = (state = nekoInitialState, action: IProfileActions) => {
     switch (action.type) {
 
         default: {

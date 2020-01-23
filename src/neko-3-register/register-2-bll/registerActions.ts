@@ -1,5 +1,4 @@
 import {REGISTER_ERROR, REGISTER_USER_DATA, TOGGLE_IS_FETCHING} from "./registerReducer";
-import {LOGIN_ERROR} from "../../neko-2-sign-in/sign-in-2-bll/signInActions";
 
 interface IRegisterUserDataAction {
     type: typeof REGISTER_USER_DATA,
@@ -18,19 +17,19 @@ interface IRegisterIsFetchingAction {
 
 export type IRegisterActions = IRegisterUserDataAction | IRegisterErrorAction | IRegisterIsFetchingAction;
 
-export const registerUserData = (success: boolean) => {
+export const registerUserData = (success: boolean): IRegisterUserDataAction => {
     return {
         type: REGISTER_USER_DATA,
         success
     }
 };
 
-export const registerError = (errorMessage: string) => {
+export const registerError = (errorMessage: string): IRegisterErrorAction => {
     return {
         type: REGISTER_ERROR, errorMessage
     }
 };
-export const toogleIsFetching = (isFetching: boolean) => {
+export const toogleIsFetching = (isFetching: boolean): IRegisterIsFetchingAction => {
     return {
         type: TOGGLE_IS_FETCHING, isFetching
     }

@@ -5,6 +5,15 @@ const instance = axios.create({
     baseURL
 });
 
-export const NekoAPI = {
+export interface IGetMeData {
+    name: string;
+    token: string;
+    error: string;
+}
 
+export const ProfileAPI = {
+    getMe: async (token: string) => {
+        const response = await instance.post<IGetMeData>('/auth/me', {token});
+        return response.data;
+    },
 };
